@@ -388,11 +388,14 @@ bool GdalDecoder::readData( Mat& img ){
         // get the GDAL Band
         GDALRasterBand* band = m_dataset->GetRasterBand(c+1);
 
-        /* Map palette band to color index 0 and red, green, blue, alpha bands
-           to BGRA indexes */
+        /* Map palette band and gray band to color index 0 and red, green,
+           blue, alpha bands to BGRA indexes. Note: ignoring HSL, CMY,
+           CMYK, and YCbCr color spaces, rather than converting them
+           to BGR. */
         int color = -1;
         switch (band->GetColorInterpretation()) {
         case GCI_PaletteIndex:
+        case GCI_GrayIndex:
         case GCI_BlueBand:
             color = 0;
             break;
