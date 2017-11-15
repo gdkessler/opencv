@@ -405,6 +405,9 @@ bool GdalDecoder::readData( Mat& img ){
         case GCI_AlphaBand:
             color = 3;
             break;
+        default:
+            color = -1;
+            break;
         }
 
         if (color >= 0) {
